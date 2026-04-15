@@ -166,7 +166,8 @@
                 <div class="w-full md:w-1/2 fade-in" style="transition-delay: 200ms;">
                     <p class="text-clinic-gold tracking-[0.3em] font-medium mb-2">LEE JIHAN</p>
                     <h1 class="text-5xl font-bold mb-4">李佶翰 <span class="text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
-                    <div class="space-y-1 text-clinic-gray tracking-widest mb-8 border-l-2 border-clinic-gold pl-4">
+                    <div class="space-y-1 text-clinic-dark tracking-widest mb-8 border-l-2 border-clinic-gold pl-4">
+                        <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
                         <p>台灣牙周病醫學會專科醫師</p>
                         <p>TAOI台灣植牙醫學會專科醫師</p>
                         <p>中華民國家庭牙醫學會專科醫師</p>
@@ -347,7 +348,7 @@
                             <p class="text-clinic-dark leading-relaxed tracking-wider">
                                 面對全口牙況不佳，拔光牙齒換取一日植牙（All-on-4）往往是坊間最快的選項，但代價卻是永久失去原生牙。我深信<strong>「保留」比「取代」更有價值</strong>，即便被判定條件不佳，條件適合下我仍會盡力運用專業技術來保留多一點牙齒。
                                 <br><br>
-                                我會提供詳盡的方案對照，讓您了解不同決策的長遠影響。對我而言，用專業守護您的原生笑容，是比植牙更重要的使命。
+                                閉幕會提供詳盡的方案對照，讓您了解不同決策的長遠影響。對我而言，用專業守護您的原生笑容，是比植牙更重要的使命。
                             </p>
                             
                             <div class="mt-8">
@@ -433,13 +434,13 @@
                         
                         <div class="flex flex-col space-y-4 max-w-sm mx-auto text-left">
                             <button id="post-op-1" onclick="openEduItem(0)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
-                                <span class="mr-3">01.</span> 牙齒拔除後注意事項 &rarr;
+                                <span class="mr-3">01.</span> 微創牙周再生治療術後注意事項 &rarr;
                             </button>
                             <button id="post-op-2" onclick="openEduItem(1)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
-                                <span class="mr-3">02.</span> 微創牙周再生治療術後注意事項 &rarr;
+                                <span class="mr-3">02.</span> 植牙手術術後注意事項 &rarr;
                             </button>
                             <button id="post-op-3" onclick="openEduItem(2)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
-                                <span class="mr-3">03.</span> 植牙手術術後注意事項 &rarr;
+                                <span class="mr-3">03.</span> 拔牙後注意事項 &rarr;
                             </button>
                             <button id="post-op-4" onclick="openEduItem(3)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">04.</span> 牙齦移植手術術後注意事項 &rarr;
@@ -555,9 +556,9 @@
                 { title: "二次植牙重建案例", desc: "修復他院植牙失敗，重回穩定咀嚼。", before: "https://i.meee.com.tw/b46e9ae.jpg", after: "https://i.meee.com.tw/3ClWXhC.jpg" }
             ],
             edu: [
-                { title: "牙齒拔除後注意事項", img: "https://i.meee.com.tw/xbsO2GQ.png" },
                 { title: "微創牙周再生治療術後注意事項", img: "https://i.meee.com.tw/fE2IlmG.png" },
                 { title: "植牙手術術後注意事項", img: "https://i.meee.com.tw/6fHm3xD.png" },
+                { title: "拔牙後注意事項", img: "https://i.meee.com.tw/ZeotYjg.png" },
                 { title: "牙齦移植手術術後注意事項", img: "https://i.meee.com.tw/87trD6m.png" },
                 { title: "鼻竇增高術術後注意事項", img: "https://i.meee.com.tw/BbaBkV8.png" }
             ],
@@ -595,6 +596,17 @@
             };
             checkHash();
             window.addEventListener('hashchange', checkHash);
+
+            // --- 鍵盤監聽功能 (Esc 關閉彈出視窗) ---
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('dynamic-modal');
+                    // 只有當視窗是顯示狀態時才執行關閉動作
+                    if (!modal.classList.contains('hidden')) {
+                        closeModal();
+                    }
+                }
+            });
         });
 
         // Comparison Slider
@@ -610,14 +622,13 @@
             handle.style.left = `${value}%`;
         }
 
-        // Education Special Logic (Removed title for cleaner look)
+        // Education Special Logic
         function openEduItem(index) {
             const item = siteData.edu[index];
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const content = document.getElementById('modal-content');
 
-            // Removed the <h2> title as requested
             content.innerHTML = `
                 <div class="text-center pt-4">
                     <div class="flex justify-center">
