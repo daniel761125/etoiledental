@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>李佶翰牙醫師 | Dr. Lee JiHan - 牙周植牙專家</title>
+    <title>李佶翰牙醫師-牙周植牙專科</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,8 +34,21 @@
     
     <style>
         html { scroll-padding-top: 80px; }
-        body { font-family: 'sans', sans-serif; background-color: #FDFCF9; color: #3A3A3A; }
+        body { 
+            font-family: 'sans', sans-serif; 
+            background-color: #FDFCF9; 
+            color: #3A3A3A;
+            /* 基礎防盜：禁用選取 */
+            user-select: none;
+            -webkit-user-select: none;
+        }
         h1, h2, h3, h4 { font-family: 'serif', serif; }
+
+        /* 防盜圖：禁用所有圖片的拖曳 */
+        img {
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
 
         /* 滑動對比組件樣式 */
         .comparison-container {
@@ -110,6 +123,16 @@
             transform: translateY(-5px);
         }
 
+        /* 案例圖片滑過效果 */
+        .case-thumb {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .case-thumb:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px -5px rgb(0 0 0 / 0.1);
+        }
+
         /* 衛教按鈕樣式 */
         .edu-btn {
             transition: all 0.3s ease;
@@ -122,7 +145,7 @@
         }
     </style>
 </head>
-<body class="bg-clinic-light">
+<body class="bg-clinic-light" oncontextmenu="return false;">
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100">
@@ -400,23 +423,28 @@
                 <p class="text-clinic-gray mb-16 max-w-2xl mx-auto fade-in">真實的轉變，來自於對細節的極致追求。我邀請您見證每一份重拾笑容的喜悅。</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-                    <div class="bg-clinic-light p-6 rounded-xl fade-in" style="transition-delay: 100ms;">
-                        <div class="h-64 bg-gray-200 rounded-lg mb-6 flex items-center justify-center text-clinic-gray italic">微創牙周案例</div>
+                    <div class="bg-clinic-light p-6 rounded-xl fade-in case-thumb" style="transition-delay: 100ms;" onclick="openDynamicModal('periodontal')">
+                        <div class="w-full aspect-video bg-white rounded-lg mb-6 shadow-sm overflow-hidden flex items-center justify-center border border-gray-50">
+                            <img id="periodontal-cover-auto" src="https://i.meee.com.tw/4BkBsvX.jpg" class="max-h-full max-w-full object-contain transition-opacity duration-500" alt="微創牙周案例封面">
+                        </div>
                         <h4 class="text-xl font-serif font-bold">微創牙周再生</h4>
+                        <p class="text-clinic-gold mt-2 font-medium">點擊查看案例 &rarr;</p>
                     </div>
-                    <div class="bg-clinic-light p-6 rounded-xl fade-in" style="transition-delay: 200ms;">
-                        <div class="h-64 bg-gray-200 rounded-lg mb-6 flex items-center justify-center text-clinic-gray italic">困難植牙重建案例</div>
+                    <div class="bg-clinic-light p-6 rounded-xl fade-in case-thumb" style="transition-delay: 200ms;" onclick="openDynamicModal('cases')">
+                        <div class="w-full aspect-video rounded-lg mb-6 overflow-hidden">
+                             <img src="https://i.meee.com.tw/TkHG4CY.jpg" class="w-full h-full object-cover" alt="困難植牙重建案例封面">
+                        </div>
                         <h4 class="text-xl font-serif font-bold">困難植牙重建</h4>
+                        <p class="text-clinic-gold mt-2 font-medium">點擊查看案例 &rarr;</p>
                     </div>
-                    <div class="bg-clinic-light p-6 rounded-xl fade-in" style="transition-delay: 300ms;">
-                        <div class="h-64 bg-gray-200 rounded-lg mb-6 flex items-center justify-center text-clinic-gray italic">牙齦微整形案例</div>
+                    <div class="bg-clinic-light p-6 rounded-xl fade-in case-thumb" style="transition-delay: 300ms;" onclick="openDynamicModal('cases')">
+                        <div class="w-full aspect-video rounded-lg mb-6 overflow-hidden">
+                            <img src="https://i.meee.com.tw/CcxPq7p.jpg" class="w-full h-full object-cover" alt="牙齦微整形案例封面">
+                        </div>
                         <h4 class="text-xl font-serif font-bold">牙齦微整形</h4>
+                        <p class="text-clinic-gold mt-2 font-medium">點擊查看案例 &rarr;</p>
                     </div>
                 </div>
-
-                <button class="px-10 py-3 bg-clinic-gold text-white rounded-full hover:bg-opacity-90 transition-all shadow-lg fade-in" onclick="openDynamicModal('cases')">
-                    更多案例分享
-                </button>
             </div>
         </section>
 
@@ -531,7 +559,7 @@
     <!-- Dynamic Modal System -->
     <div id="dynamic-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black bg-opacity-70 p-4 transition-all duration-300">
         <div class="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" id="modal-box">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-clinic-gray hover:text-clinic-dark z-50 bg-white/80 rounded-full p-1 shadow-sm">
+            <button onclick="closeModal()" class="fixed top-6 right-6 text-clinic-gray hover:text-clinic-dark z-[110] bg-white/80 rounded-full p-1 shadow-md">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <div id="modal-content" class="p-8 md:p-12">
@@ -540,9 +568,38 @@
         </div>
     </div>
 
+    <!-- Image Detail View (Overlay for Grid) -->
+    <div id="image-overlay" class="fixed inset-0 z-[150] hidden items-center justify-center bg-black/95 p-4" onclick="this.classList.add('hidden')">
+        <div class="relative max-w-full max-h-full flex items-center justify-center" onclick="event.stopPropagation()">
+            <button onclick="document.getElementById('image-overlay').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/70 text-white rounded-full transition-all shadow-lg z-[170] border border-white/20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="absolute inset-0 z-[165] cursor-pointer" onclick="this.parentElement.parentElement.classList.add('hidden')" oncontextmenu="return false;"></div>
+            <img id="overlay-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl block relative z-[160]" oncontextmenu="return false;">
+        </div>
+        <p class="absolute bottom-6 text-white/50 tracking-widest pointer-events-none text-sm">點擊按鈕或圖片外區域返回</p>
+    </div>
+
     <script>
         // --- Core Data Structure ---
         const siteData = {
+            periodontal: [
+                "https://i.meee.com.tw/4BkBsvX.jpg", "https://i.meee.com.tw/b0nqiai.jpg", "https://i.meee.com.tw/MFH6FqA.jpg",
+                "https://i.meee.com.tw/IJFa6yB.jpg", "https://i.meee.com.tw/mSRCspg.jpg", "https://i.meee.com.tw/1wyviit.jpg",
+                "https://i.meee.com.tw/Ie5DcnB.jpg", "https://i.meee.com.tw/UTIbZxK.jpg", "https://i.meee.com.tw/CBMHxF4.jpg",
+                "https://i.meee.com.tw/Zn1nsGA.jpg", "https://i.meee.com.tw/DzbFhf6.jpg", "https://i.meee.com.tw/UYoLCFm.jpg",
+                "https://i.meee.com.tw/BVcw13V.jpg", "https://i.meee.com.tw/wYPIUMZ.jpg", "https://i.meee.com.tw/CsB1Z6I.jpg",
+                "https://i.meee.com.tw/r3aRTFv.jpg", "https://i.meee.com.tw/B2Ocyup.jpg", "https://i.meee.com.tw/KYXJ88O.jpg",
+                "https://i.meee.com.tw/bV3b61Y.jpg", "https://i.meee.com.tw/wOmBl7A.jpg", "https://i.meee.com.tw/Sojuyf1.jpg",
+                "https://i.meee.com.tw/5kXajgj.jpg", "https://i.meee.com.tw/YtK6Bqo.jpg", "https://i.meee.com.tw/G6WGBGv.jpg",
+                "https://i.meee.com.tw/vY2vT1a.jpg", "https://i.meee.com.tw/1Y6YheD.jpg", "https://i.meee.com.tw/ynue2bM.jpg",
+                "https://i.meee.com.tw/BzoC8uS.jpg", "https://i.meee.com.tw/fVUg1a3.jpg", "https://i.meee.com.tw/FMxGJgG.jpg",
+                "https://i.meee.com.tw/uNBUP7a.jpg", "https://i.meee.com.tw/shooXIi.jpg", "https://i.meee.com.tw/U09JH2o.jpg",
+                "https://i.meee.com.tw/L7SMW6e.jpg", "https://i.meee.com.tw/YeyL29T.jpg", "https://i.meee.com.tw/XSn2YcR.jpg",
+                "https://i.meee.com.tw/F9eLEhw.jpg", "https://i.meee.com.tw/f80c1ux.jpg"
+            ],
             cases: [
                 { 
                   title: "微笑曲線調整案例", 
@@ -556,15 +613,14 @@
                 { title: "二次植牙重建案例", desc: "修復他院植牙失敗，重回穩定咀嚼。", before: "https://i.meee.com.tw/b46e9ae.jpg", after: "https://i.meee.com.tw/3ClWXhC.jpg" }
             ],
             edu: [
-                { title: "微創牙周再生治療術後注意事項", img: "https://i.meee.com.tw/fE2IlmG.png" },
-                { title: "植牙手術術後注意事項", img: "https://i.meee.com.tw/6fHm3xD.png" },
-                { title: "拔牙後注意事項", img: "https://i.meee.com.tw/ZeotYjg.png" },
+                { title: "微創牙周再生治療術後注意事項", img: "https://i.meee.com.tw/491MAMw.png" },
+                { title: "植牙手術術後注意事項", img: "https://i.meee.com.tw/Sr6lSUW.png" },
+                { title: "拔牙後注意事項", img: "https://i.meee.com.tw/1uV15eB.png" },
                 { title: "牙齦移植手術術後注意事項", img: "https://i.meee.com.tw/87trD6m.png" },
-                { title: "鼻竇增高術術後注意事項", img: "https://i.meee.com.tw/BbaBkV8.png" }
+                { title: "鼻竇增高術術後注意事項", img: "https://i.meee.com.tw/f59ZbDN.png" }
             ],
             video: [
-                { title: "水雷射微創牙周治療簡介", url: "https://www.youtube.com/embed/2-ddXp_zeuY" },
-                { title: "什麼是微笑美學與牙齦微整形？", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+                { title: "水雷服務簡介", url: "https://www.youtube.com/embed/2-ddXp_zeuY" }
             ]
         };
 
@@ -585,31 +641,37 @@
             menuBtn.onclick = () => menu.classList.toggle('hidden');
             menu.onclick = () => menu.classList.add('hidden');
 
-            // --- QR Code 自動偵測功能 ---
             const checkHash = () => {
                 const hash = window.location.hash;
-                if (hash === '#post-op-1') setTimeout(() => openEduItem(0), 500);
-                if (hash === '#post-op-2') setTimeout(() => openEduItem(1), 500);
-                if (hash === '#post-op-3') setTimeout(() => openEduItem(2), 500);
-                if (hash === '#post-op-4') setTimeout(() => openEduItem(3), 500);
-                if (hash === '#post-op-5') setTimeout(() => openEduItem(4), 500);
+                if (hash.startsWith('#post-op-')) {
+                    const idx = parseInt(hash.replace('#post-op-', '')) - 1;
+                    setTimeout(() => openEduItem(idx), 500);
+                }
             };
             checkHash();
             window.addEventListener('hashchange', checkHash);
 
-            // --- 鍵盤監聽功能 (Esc 關閉彈出視窗) ---
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    const modal = document.getElementById('dynamic-modal');
-                    // 只有當視窗是顯示狀態時才執行關閉動作
-                    if (!modal.classList.contains('hidden')) {
-                        closeModal();
-                    }
+                if (e.key === 'Escape') closeModal();
+                if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                    e.preventDefault();
                 }
             });
+
+            let coverIdx = 0;
+            const coverImg = document.getElementById('periodontal-cover-auto');
+            if (coverImg) {
+                setInterval(() => {
+                    coverIdx = (coverIdx + 1) % siteData.periodontal.length;
+                    coverImg.style.opacity = 0;
+                    setTimeout(() => {
+                        coverImg.src = siteData.periodontal[coverIdx];
+                        coverImg.style.opacity = 1;
+                    }, 500);
+                }, 3000); 
+            }
         });
 
-        // Comparison Slider
         function handleSlider(slider) {
             const value = slider.value;
             const container = slider.parentElement;
@@ -622,7 +684,7 @@
             handle.style.left = `${value}%`;
         }
 
-        // Education Special Logic
+        // Education Item Modal (Modified to remove title)
         function openEduItem(index) {
             const item = siteData.edu[index];
             const modal = document.getElementById('dynamic-modal');
@@ -630,9 +692,9 @@
             const content = document.getElementById('modal-content');
 
             content.innerHTML = `
-                <div class="text-center pt-4">
-                    <div class="flex justify-center">
-                        <img src="${item.img}" alt="${item.title}" class="max-w-full h-auto rounded-lg shadow-md border border-gray-100">
+                <div class="text-center pt-6">
+                    <div class="flex justify-center mb-4">
+                        <img src="${item.img}" alt="${item.title}" class="max-w-full h-auto rounded-lg shadow-md border border-gray-100" oncontextmenu="return false;">
                     </div>
                 </div>
             `;
@@ -646,7 +708,14 @@
             }, 10);
         }
 
-        // General Modal Logic
+        function showDetailImage(url) {
+            const overlay = document.getElementById('image-overlay');
+            const img = document.getElementById('overlay-img');
+            img.src = url;
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
         function openDynamicModal(type) {
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
@@ -654,19 +723,32 @@
             
             content.innerHTML = '<div class="text-center py-20"><div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-clinic-gold border-t-transparent"></div></div>';
             
-            let html = `<h2 class="text-4xl font-bold mb-10 font-serif text-clinic-dark border-b pb-6">`;
-            if(type === 'cases') html += `更多成功案例分享</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-10">`;
-            if(type === 'video') html += `影音衛教頻道</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-10">`;
-
-            siteData[type].forEach(item => {
-                if(type === 'cases') {
+            let html = `<div class="mb-10 text-center">`;
+            
+            if(type === 'periodontal') {
+                html += `
+                    <h2 class="text-4xl font-bold mb-4 font-serif text-clinic-dark">微創牙周再生案例</h2>
+                    <p class="text-clinic-gray tracking-widest mb-10">累積眾多成功案例，以不開刀方式達到牙周再生。</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        ${siteData.periodontal.map(url => `
+                            <div class="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-zoom-in relative group" onclick="showDetailImage('${url}')">
+                                <div class="absolute inset-0 z-10" oncontextmenu="return false;"></div>
+                                <img src="${url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="案例圖" loading="lazy" oncontextmenu="return false;">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if(type === 'cases') {
+                html += `<h2 class="text-4xl font-bold mb-10 font-serif text-clinic-dark">精選對照案例</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-10">`;
+                siteData.cases.forEach(item => {
                     const bf = item.filters?.before || 'none';
                     const af = item.filters?.after || 'none';
                     html += `
-                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                            <div class="comparison-container mb-6">
-                                <img src="${item.before}" class="before-image" style="filter: ${bf};">
-                                <img src="${item.after}" class="after-image" style="filter: ${af};">
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-left relative">
+                            <div class="absolute inset-0 z-20 pointer-events-none" oncontextmenu="return false;"></div>
+                            <div class="comparison-container mb-6 relative z-10">
+                                <img src="${item.before}" class="before-image" style="filter: ${bf};" oncontextmenu="return false;">
+                                <img src="${item.after}" class="after-image" style="filter: ${af};" oncontextmenu="return false;">
                                 <div class="slider-line"></div>
                                 <div class="slider-handle"><svg class="w-5 h-5 text-clinic-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11v4H5v2h4v4l4-5-4-5z"></path></svg></div>
                                 <input type="range" min="0" max="100" value="50" class="comparison-slider" oninput="handleSlider(this)">
@@ -675,16 +757,19 @@
                             <p class="text-clinic-gray leading-relaxed">${item.desc}</p>
                         </div>
                     `;
-                } else if(type === 'video') {
+                });
+            } else if(type === 'video') {
+                html += `<h2 class="text-4xl font-bold mb-10 font-serif text-clinic-dark border-b pb-6">影音衛教頻道</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-10">`;
+                siteData.video.forEach(item => {
                     html += `
                         <div class="bg-black rounded-2xl overflow-hidden aspect-video shadow-lg">
                             <iframe class="w-full h-full" src="${item.url}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     `;
-                }
-            });
-            html += `</div>`;
+                });
+            }
             
+            html += `</div>`;
             content.innerHTML = html;
             
             modal.classList.remove('hidden');
@@ -699,6 +784,13 @@
         function closeModal() {
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
+            const overlay = document.getElementById('image-overlay');
+            
+            if(!overlay.classList.contains('hidden')) {
+                overlay.classList.add('hidden');
+                return;
+            }
+
             box.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
