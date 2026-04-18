@@ -38,19 +38,16 @@
             font-family: 'sans', sans-serif; 
             background-color: #FDFCF9; 
             color: #3A3A3A;
-            /* 基礎防盜：禁用選取 */
             user-select: none;
             -webkit-user-select: none;
         }
         h1, h2, h3, h4 { font-family: 'serif', serif; }
 
-        /* 防盜圖：禁用所有圖片的拖曳 */
         img {
             pointer-events: none;
             -webkit-user-drag: none;
         }
 
-        /* 滑動對比組件樣式 */
         .comparison-container {
             position: relative;
             width: 100%;
@@ -100,11 +97,9 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* 內容淡入 */
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .is-visible { opacity: 1; transform: translateY(0); }
 
-        /* 導覽列 */
         .nav-link { position: relative; }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 1px;
@@ -115,7 +110,6 @@
         
         .modal-open { overflow: hidden; }
 
-        /* Specialty Card Hover */
         .specialty-card {
             transition: all 0.4s ease;
         }
@@ -123,7 +117,6 @@
             transform: translateY(-5px);
         }
 
-        /* 案例圖片滑過效果 */
         .case-thumb {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -133,7 +126,6 @@
             box-shadow: 0 15px 30px -5px rgb(0 0 0 / 0.1);
         }
 
-        /* 衛教按鈕樣式 */
         .edu-btn {
             transition: all 0.3s ease;
             border-bottom: 1px solid transparent;
@@ -142,6 +134,27 @@
             color: #C3A26E;
             border-bottom: 1px solid #C3A26E;
             padding-left: 8px;
+        }
+
+        .nav-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(58, 58, 58, 0.6); 
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-btn:hover {
+            background: #C3A26E; 
+            transform: scale(1.1) translateY(-50%);
+            box-shadow: 0 8px 25px rgba(195, 162, 110, 0.4);
+        }
+        .nav-btn:active {
+            transform: scale(0.95) translateY(-50%);
+        }
+
+        /* 手機版姓名區塊動態效果 */
+        #mobile-name-card {
+            transition: transform 0.1s ease-out;
         }
     </style>
 </head>
@@ -181,22 +194,29 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="pt-32 pb-20 container mx-auto max-w-7xl px-6">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/2 fade-in">
-                    <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full rounded-2xl shadow-2xl">
+        <section id="hero" class="pt-24 md:pt-32 pb-20 container mx-auto max-w-7xl px-6">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+                <!-- Image Container -->
+                <div class="w-full md:w-1/2 fade-in relative">
+                    <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full rounded-2xl shadow-2xl relative z-0">
                 </div>
-                <div class="w-full md:w-1/2 fade-in" style="transition-delay: 200ms;">
-                    <p class="text-clinic-gold tracking-[0.3em] font-medium mb-2">LEE JIHAN</p>
-                    <h1 class="text-5xl font-bold mb-4">李佶翰 <span class="text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
-                    <div class="space-y-1 text-clinic-dark tracking-widest mb-8 border-l-2 border-clinic-gold pl-4">
-                        <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
-                        <p>台灣牙周病醫學會專科醫師</p>
-                        <p>TAOI台灣植牙醫學會專科醫師</p>
-                        <p>中華民國家庭牙醫學會專科醫師</p>
+                
+                <!-- Text Container - Mobile Overlap Style -->
+                <div id="hero-text-block" class="w-full md:w-1/2 fade-in -mt-16 md:mt-0 z-10 px-4 md:px-0" style="transition-delay: 200ms;">
+                    <!-- Name Card -->
+                    <div id="mobile-name-card" class="bg-white/90 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-6 md:p-0 rounded-2xl md:rounded-none shadow-xl md:shadow-none border border-white/20 md:border-none">
+                        <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-2xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
+                        <div class="space-y-1 text-clinic-dark tracking-widest mb-2 md:mb-8 border-l-2 border-clinic-gold pl-4 text-sm md:text-base">
+                            <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
+                            <p>台灣牙周病醫學會專科醫師</p>
+                            <p>TAOI台灣植牙醫學會專科醫師</p>
+                            <p>中華民國家庭牙醫學會專科醫師</p>
+                        </div>
                     </div>
                     
-                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-50">
+                    <!-- Core Value Section -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-50 mt-6 md:mt-0">
                         <h3 class="text-2xl text-clinic-gold mb-6 font-serif">核心價值</h3>
                         <p class="text-clinic-dark leading-loose tracking-wider">
                             在我的診間，醫療是<strong>專業</strong>與<strong>溫度</strong>的結合。<br>
@@ -215,7 +235,6 @@
                 <h2 class="text-4xl font-bold text-center mb-16 fade-in">學經歷背景</h2>
                 
                 <div class="flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4">
-                    <!-- Column 1: Background -->
                     <div class="flex-1 order-2 md:order-1 fade-in">
                         <div class="h-full flex flex-col justify-start pt-4">
                             <h3 class="text-xl text-clinic-gold mb-6 font-serif border-b border-clinic-gold pb-2 inline-block">專業訓練背景</h3>
@@ -244,12 +263,10 @@
                         </div>
                     </div>
 
-                    <!-- Column 2: Photo -->
                     <div class="w-full md:w-1/3 order-1 md:order-2 flex justify-center items-center fade-in" style="transition-delay: 200ms;">
                         <img src="https://i.meee.com.tw/MDY56u3.jpg" alt="李佶翰醫師" class="max-w-full rounded-full shadow-xl border-8 border-clinic-light">
                     </div>
 
-                    <!-- Column 3: Honors -->
                     <div class="flex-1 order-3 md:order-3 fade-in" style="transition-delay: 400ms;">
                         <div class="h-full flex flex-col justify-start pt-4">
                             <h3 class="text-xl text-clinic-gold mb-6 font-serif border-b border-clinic-gold pb-2 inline-block">榮譽與學術貢獻</h3>
@@ -291,7 +308,7 @@
                 <h2 class="text-4xl font-bold text-center mb-16 fade-in">專業領域</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <!-- Item 1: 牙周病 -->
+                    <!-- Specialty Item 1 -->
                     <div class="specialty-card bg-white p-8 md:p-10 rounded-2xl shadow-md border border-gray-50 fade-in">
                         <div class="flex items-center mb-6">
                             <div class="w-1.5 h-8 bg-clinic-gold mr-4"></div>
@@ -329,7 +346,7 @@
                         </div>
                     </div>
 
-                    <!-- Item 2: 植牙 -->
+                    <!-- Specialty Item 2 -->
                     <div class="specialty-card bg-white p-8 md:p-10 rounded-2xl shadow-md border border-gray-50 fade-in" style="transition-delay: 100ms;">
                         <div class="flex items-center mb-6">
                             <div class="w-1.5 h-8 bg-clinic-gold mr-4"></div>
@@ -361,7 +378,7 @@
                         </div>
                     </div>
 
-                    <!-- Item 3: 全口重建 -->
+                    <!-- Specialty Item 3 -->
                     <div class="specialty-card bg-white p-8 md:p-10 rounded-2xl shadow-md border border-gray-50 fade-in" style="transition-delay: 200ms;">
                         <div class="flex items-center mb-6">
                             <div class="w-1.5 h-8 bg-clinic-gold mr-4"></div>
@@ -387,7 +404,7 @@
                         </div>
                     </div>
 
-                    <!-- Item 4: 微笑美學 -->
+                    <!-- Specialty Item 4 -->
                     <div class="specialty-card bg-white p-8 md:p-10 rounded-2xl shadow-md border border-gray-50 fade-in" style="transition-delay: 300ms;">
                         <div class="flex items-center mb-6">
                             <div class="w-1.5 h-8 bg-clinic-gold mr-4"></div>
@@ -425,7 +442,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
                     <div class="bg-clinic-light p-6 rounded-xl fade-in case-thumb" style="transition-delay: 100ms;" onclick="openDynamicModal('periodontal')">
                         <div class="w-full aspect-video bg-white rounded-lg mb-6 shadow-sm overflow-hidden flex items-center justify-center border border-gray-50">
-                            <img id="periodontal-cover-auto" src="https://i.meee.com.tw/4BkBsvX.jpg" class="max-h-full max-w-full object-contain transition-opacity duration-500" alt="微創牙周案例封面">
+                            <img id="periodontal-cover-auto" src="https://meee.com.tw/Yntbw6o.jpg" class="max-h-full max-w-full object-contain transition-opacity duration-500" alt="微創牙周案例封面">
                         </div>
                         <h4 class="text-xl font-serif font-bold">微創牙周再生</h4>
                         <p class="text-clinic-gold mt-2 font-medium">點擊查看案例 &rarr;</p>
@@ -452,7 +469,6 @@
         <section class="py-24 bg-clinic-light">
             <div class="container mx-auto max-w-7xl px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <!-- Education Section (Direct Access for QR) -->
                     <div id="education" class="bg-white p-10 rounded-2xl shadow-xl text-center fade-in">
                         <div class="w-16 h-16 bg-clinic-light rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg class="w-8 h-8 text-clinic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -562,52 +578,47 @@
             <button onclick="closeModal()" class="fixed top-6 right-6 text-clinic-gray hover:text-clinic-dark z-[110] bg-white/80 rounded-full p-1 shadow-md">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <div id="modal-content" class="p-8 md:p-12">
-                <!-- Content will be injected here -->
-            </div>
+            <div id="modal-content" class="p-8 md:p-12"></div>
         </div>
     </div>
 
-    <!-- Image Detail View (Overlay for Grid) -->
+    <!-- Image Detail View with Nav Buttons -->
     <div id="image-overlay" class="fixed inset-0 z-[150] hidden items-center justify-center bg-black/95 p-4" onclick="this.classList.add('hidden')">
+        <button id="overlay-prev" onclick="changeImage(-1, event)" class="nav-btn fixed left-4 md:left-10 top-1/2 -translate-y-1/2 z-[170] p-3 md:p-5 text-white rounded-full">
+            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="overlay-next" onclick="changeImage(1, event)" class="nav-btn fixed right-4 md:right-10 top-1/2 -translate-y-1/2 z-[170] p-3 md:p-5 text-white rounded-full">
+            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </button>
         <div class="relative max-w-full max-h-full flex items-center justify-center" onclick="event.stopPropagation()">
-            <button onclick="document.getElementById('image-overlay').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/70 text-white rounded-full transition-all shadow-lg z-[170] border border-white/20">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
+            <button onclick="document.getElementById('image-overlay').classList.add('hidden')" class="absolute -top-12 right-0 md:top-4 md:-right-16 p-2 bg-black/40 hover:bg-black/70 text-white rounded-full transition-all shadow-lg z-[170] border border-white/20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <div class="absolute inset-0 z-[165] cursor-pointer" onclick="this.parentElement.parentElement.classList.add('hidden')" oncontextmenu="return false;"></div>
-            <img id="overlay-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl block relative z-[160]" oncontextmenu="return false;">
+            <img id="overlay-img" src="" class="max-w-full max-h-[85vh] md:max-h-[90vh] rounded-lg shadow-2xl block relative z-[160]" oncontextmenu="return false;">
         </div>
-        <p class="absolute bottom-6 text-white/50 tracking-widest pointer-events-none text-sm">點擊按鈕或圖片外區域返回</p>
+        <p class="absolute bottom-6 text-white/50 tracking-widest pointer-events-none text-sm hidden md:block">點擊按鈕、圖片外區域或使用方向鍵切換</p>
     </div>
 
     <script>
         // --- Core Data Structure ---
         const siteData = {
             periodontal: [
-                "https://i.meee.com.tw/4BkBsvX.jpg", "https://i.meee.com.tw/b0nqiai.jpg", "https://i.meee.com.tw/MFH6FqA.jpg",
-                "https://i.meee.com.tw/IJFa6yB.jpg", "https://i.meee.com.tw/mSRCspg.jpg", "https://i.meee.com.tw/1wyviit.jpg",
-                "https://i.meee.com.tw/Ie5DcnB.jpg", "https://i.meee.com.tw/UTIbZxK.jpg", "https://i.meee.com.tw/CBMHxF4.jpg",
-                "https://i.meee.com.tw/Zn1nsGA.jpg", "https://i.meee.com.tw/DzbFhf6.jpg", "https://i.meee.com.tw/UYoLCFm.jpg",
-                "https://i.meee.com.tw/BVcw13V.jpg", "https://i.meee.com.tw/wYPIUMZ.jpg", "https://i.meee.com.tw/CsB1Z6I.jpg",
-                "https://i.meee.com.tw/r3aRTFv.jpg", "https://i.meee.com.tw/B2Ocyup.jpg", "https://i.meee.com.tw/KYXJ88O.jpg",
-                "https://i.meee.com.tw/bV3b61Y.jpg", "https://i.meee.com.tw/wOmBl7A.jpg", "https://i.meee.com.tw/Sojuyf1.jpg",
-                "https://i.meee.com.tw/5kXajgj.jpg", "https://i.meee.com.tw/YtK6Bqo.jpg", "https://i.meee.com.tw/G6WGBGv.jpg",
-                "https://i.meee.com.tw/vY2vT1a.jpg", "https://i.meee.com.tw/1Y6YheD.jpg", "https://i.meee.com.tw/ynue2bM.jpg",
-                "https://i.meee.com.tw/BzoC8uS.jpg", "https://i.meee.com.tw/fVUg1a3.jpg", "https://i.meee.com.tw/FMxGJgG.jpg",
-                "https://i.meee.com.tw/uNBUP7a.jpg", "https://i.meee.com.tw/shooXIi.jpg", "https://i.meee.com.tw/U09JH2o.jpg",
-                "https://i.meee.com.tw/L7SMW6e.jpg", "https://i.meee.com.tw/YeyL29T.jpg", "https://i.meee.com.tw/XSn2YcR.jpg",
-                "https://i.meee.com.tw/F9eLEhw.jpg", "https://i.meee.com.tw/f80c1ux.jpg"
+                "https://meee.com.tw/Yntbw6o.jpg", "https://meee.com.tw/n4bFMAL.jpg", "https://meee.com.tw/aC5UNEk.jpg",
+                "https://meee.com.tw/BQhOJeP.jpg", "https://meee.com.tw/KGWCdlJ.jpg", "https://meee.com.tw/4gCF9vr.jpg",
+                "https://meee.com.tw/HaY69g8.jpg", "https://meee.com.tw/XrsSefY.jpg", "https://meee.com.tw/jNuuDZd.jpg",
+                "https://meee.com.tw/pZSv711.jpg", "https://meee.com.tw/hmcXdIo.jpg", "https://meee.com.tw/UvGGJF6.jpg",
+                "https://meee.com.tw/ohauL3D.jpg", "https://meee.com.tw/FTm9Cgc.jpg", "https://meee.com.tw/ZaXkUGN.jpg",
+                "https://meee.com.tw/aA8jHUQ.jpg", "https://meee.com.tw/IiExpaN.jpg", "https://meee.com.tw/rbvpuPL.jpg",
+                "https://meee.com.tw/uDGfiKZ.jpg", "https://meee.com.tw/dEcZfcV.jpg", "https://meee.com.tw/FdAUF87.jpg",
+                "https://meee.com.tw/nWGHMdm.jpg", "https://meee.com.tw/rvCF5zR.jpg", "https://meee.com.tw/Zr0KPBG.jpg",
+                "https://meee.com.tw/MBRwAcM.jpg", "https://meee.com.tw/d1LvDSU.jpg", "https://meee.com.tw/Zk5fFvQ.jpg",
+                "https://meee.com.tw/ZiEppdt.jpg", "https://meee.com.tw/NydSAtE.jpg", "https://meee.com.tw/RQkv188.jpg",
+                "https://meee.com.tw/iDT3EQy.jpg", "https://meee.com.tw/YGK1OXD.jpg", "https://meee.com.tw/7CjCZch.jpg",
+                "https://meee.com.tw/epJG4vy.jpg", "https://meee.com.tw/9rn3klz.jpg", "https://meee.com.tw/PVut7dA.jpg",
+                "https://meee.com.tw/H8Vp3sQ.jpg", "https://meee.com.tw/kTGWWDB.jpg"
             ],
             cases: [
-                { 
-                  title: "微笑曲線調整案例", 
-                  desc: "微笑曲線調整，打造和諧自然的笑容。", 
-                  before: "https://i.meee.com.tw/CcxPq7p.jpg", 
-                  after: "https://i.meee.com.tw/rC7UgJ4.jpg",
-                  filters: { before: 'brightness(1.1) saturate(1.1) contrast(1.02)', after: 'brightness(0.96) contrast(1.05)' } 
-                },
+                { title: "微笑曲線調整案例", desc: "微笑曲線調整，打造和諧自然的笑容。", before: "https://i.meee.com.tw/CcxPq7p.jpg", after: "https://i.meee.com.tw/rC7UgJ4.jpg", filters: { before: 'brightness(1.1) saturate(1.1) contrast(1.02)', after: 'brightness(0.96) contrast(1.05)' } },
                 { title: "微創牙周再生案例", desc: "嚴重的牙周病導致牙床缺損，免開刀達成組織再生。", before: "https://i.meee.com.tw/ULZpRel.jpg", after: "https://i.meee.com.tw/XhmS4H3.jpg" },
                 { title: "全口重建案例", desc: "複雜全口牙況，致力於保留最多原生牙齒。", before: "https://i.meee.com.tw/Xprj8gt.jpg", after: "https://i.meee.com.tw/Qex1dHn.jpg" },
                 { title: "二次植牙重建案例", desc: "修復他院植牙失敗，重回穩定咀嚼。", before: "https://i.meee.com.tw/b46e9ae.jpg", after: "https://i.meee.com.tw/3ClWXhC.jpg" }
@@ -623,6 +634,11 @@
                 { title: "水雷服務簡介", url: "https://www.youtube.com/embed/2-ddXp_zeuY" }
             ]
         };
+
+        // --- Current State ---
+        let currentImageIdx = 0;
+        let currentImageType = 'periodontal'; 
+        let isChanging = false; 
 
         // --- Core Logic ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -641,34 +657,44 @@
             menuBtn.onclick = () => menu.classList.toggle('hidden');
             menu.onclick = () => menu.classList.add('hidden');
 
-            const checkHash = () => {
-                const hash = window.location.hash;
-                if (hash.startsWith('#post-op-')) {
-                    const idx = parseInt(hash.replace('#post-op-', '')) - 1;
-                    setTimeout(() => openEduItem(idx), 500);
-                }
-            };
-            checkHash();
-            window.addEventListener('hashchange', checkHash);
-
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-                if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                    e.preventDefault();
+                const overlay = document.getElementById('image-overlay');
+                if (!overlay.classList.contains('hidden')) {
+                    if (e.key === 'ArrowLeft') changeImage(-1);
+                    if (e.key === 'ArrowRight') changeImage(1);
+                    if (e.key === 'Escape') closeModal();
+                } else {
+                    if (e.key === 'Escape') closeModal();
                 }
             });
 
+            // --- Mobile Scroll Parallax (Separate Effect) ---
+            const mobileCard = document.getElementById('mobile-name-card');
+            window.addEventListener('scroll', () => {
+                // Only trigger on mobile/small tablets
+                if (window.innerWidth < 768) {
+                    const scrollPos = window.scrollY;
+                    // Move the card down slightly as we scroll to "separate" it from the original overlap
+                    const offset = Math.min(scrollPos * 0.2, 80); 
+                    mobileCard.style.transform = `translateY(${offset}px)`;
+                } else {
+                    mobileCard.style.transform = 'none';
+                }
+            });
+
+            // --- Carousel Logic ---
             let coverIdx = 0;
             const coverImg = document.getElementById('periodontal-cover-auto');
             if (coverImg) {
-                setInterval(() => {
-                    coverIdx = (coverIdx + 1) % siteData.periodontal.length;
+                if (window.carouselTimer) clearInterval(window.carouselTimer);
+                window.carouselTimer = setInterval(() => {
                     coverImg.style.opacity = 0;
                     setTimeout(() => {
+                        coverIdx = (coverIdx + 1) % siteData.periodontal.length;
                         coverImg.src = siteData.periodontal[coverIdx];
-                        coverImg.style.opacity = 1;
+                        coverImg.onload = () => { coverImg.style.opacity = 1; };
                     }, 500);
-                }, 3000); 
+                }, 4000); 
             }
         });
 
@@ -684,7 +710,6 @@
             handle.style.left = `${value}%`;
         }
 
-        // Education Item Modal (Modified to remove title)
         function openEduItem(index) {
             const item = siteData.edu[index];
             const modal = document.getElementById('dynamic-modal');
@@ -708,30 +733,65 @@
             }, 10);
         }
 
-        function showDetailImage(url) {
+        function showDetailImage(index, type = 'periodontal') {
+            currentImageIdx = index;
+            currentImageType = type;
+            isChanging = false; 
+            
             const overlay = document.getElementById('image-overlay');
             const img = document.getElementById('overlay-img');
-            img.src = url;
+            const prevBtn = document.getElementById('overlay-prev');
+            const nextBtn = document.getElementById('overlay-next');
+            
+            img.src = siteData[type][index];
+            img.style.opacity = '1';
+            
+            if (siteData[type].length <= 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+            }
+
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
+        }
+
+        function changeImage(step, event) {
+            if (event) event.stopPropagation();
+            if (isChanging) return; 
+
+            const list = siteData[currentImageType];
+            if (!list || list.length === 0) return;
+
+            isChanging = true;
+            const img = document.getElementById('overlay-img');
+            img.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                currentImageIdx = (currentImageIdx + step + list.length) % list.length;
+                img.src = list[currentImageIdx];
+                img.onload = () => {
+                    img.style.opacity = '1';
+                    isChanging = false; 
+                };
+            }, 200);
         }
 
         function openDynamicModal(type) {
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const content = document.getElementById('modal-content');
-            
             content.innerHTML = '<div class="text-center py-20"><div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-clinic-gold border-t-transparent"></div></div>';
-            
             let html = `<div class="mb-10 text-center">`;
-            
             if(type === 'periodontal') {
                 html += `
                     <h2 class="text-4xl font-bold mb-4 font-serif text-clinic-dark">微創牙周再生案例</h2>
                     <p class="text-clinic-gray tracking-widest mb-10">累積眾多成功案例，以不開刀方式達到牙周再生。</p>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        ${siteData.periodontal.map(url => `
-                            <div class="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-zoom-in relative group" onclick="showDetailImage('${url}')">
+                        ${siteData.periodontal.map((url, idx) => `
+                            <div class="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-zoom-in relative group" onclick="showDetailImage(${idx}, 'periodontal')">
                                 <div class="absolute inset-0 z-10" oncontextmenu="return false;"></div>
                                 <img src="${url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="案例圖" loading="lazy" oncontextmenu="return false;">
                             </div>
@@ -768,10 +828,8 @@
                     `;
                 });
             }
-            
             html += `</div>`;
             content.innerHTML = html;
-            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.classList.add('modal-open');
@@ -785,12 +843,10 @@
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const overlay = document.getElementById('image-overlay');
-            
             if(!overlay.classList.contains('hidden')) {
                 overlay.classList.add('hidden');
                 return;
             }
-
             box.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
