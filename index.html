@@ -190,22 +190,22 @@
 
     <main>
         <!-- Hero Section -->
-        <!-- 優化：調整手機版間距，確保資歷區塊完整顯示 -->
-        <section id="hero" class="pt-24 md:pt-32 pb-16 md:pb-12 container mx-auto max-w-7xl px-0 md:px-6 min-h-screen flex flex-col justify-center">
+        <!-- 優化：調整手機版 pb 間距，確保整體在首屏顯示更完整 -->
+        <section id="hero" class="pt-24 md:pt-32 pb-8 md:pb-12 container mx-auto max-w-7xl px-0 md:px-6 min-h-screen flex flex-col justify-center">
             <div class="flex flex-col md:flex-row items-center gap-0 md:gap-12">
                 
-                <!-- 照片容器 - 在手機版移除圓角以便貼合邊界，增加沉浸感 -->
+                <!-- 照片容器 - 保持原始比例與位置 -->
                 <div class="w-full md:w-1/2 fade-in relative flex justify-center">
                     <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full h-auto md:max-h-[85vh] md:w-auto md:rounded-2xl shadow-xl relative z-0 object-contain">
                 </div>
                 
-                <!-- 文字容器 - 增加 z-10 確保懸浮在照片之上 -->
+                <!-- 文字容器 -->
                 <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-6 md:space-y-10 px-4 md:px-0" style="transition-delay: 200ms;">
                     
                     <!-- 姓名與資歷卡片 (修正重點) -->
-                    <!-- 手機版：增加 mx-4 以及更深的負邊距 -mt-24 達到重疊效果 -->
-                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-7 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-gray-100 md:border-none -mt-24 md:mt-0 relative z-20">
-                        <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
+                    <!-- 手機版：增加負邊距 -mt-40 使其更往上重疊，確保底部的資歷文字不會被切掉 -->
+                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-6 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-gray-100 md:border-none -mt-40 md:mt-0 relative z-20">
+                        <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-xs md:text-base">LEE JIHAN</p>
                         <h1 class="text-3xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
                         <div class="space-y-2 md:space-y-1 text-clinic-dark tracking-widest mb-2 border-l-2 border-clinic-gold pl-4 text-sm md:text-base leading-relaxed">
                             <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
@@ -229,6 +229,7 @@
             </div>
         </section>
 
+        <!-- (以下區塊保持不變) -->
         <!-- About / Education -->
         <section id="about" class="py-24 bg-white">
             <div class="container mx-auto max-w-7xl px-6">
