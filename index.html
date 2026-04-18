@@ -190,20 +190,23 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="pt-24 md:pt-32 pb-16 container mx-auto max-w-7xl px-6">
-            <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
-                <!-- Image Container -->
-                <div class="w-full md:w-1/2 fade-in relative">
-                    <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full rounded-2xl shadow-2xl relative z-0">
+        <!-- 修正：增加電腦版頂部間距 (md:pt-28) 避免與固定導覽列重疊 -->
+        <section id="hero" class="pt-24 md:pt-28 pb-24 md:pb-12 container mx-auto max-w-7xl px-6 min-h-[90vh] flex flex-col justify-center">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                
+                <!-- 照片容器 - 修正：調高 md:max-h-[80vh] 讓照片占滿度更高 -->
+                <div class="w-full md:w-1/2 fade-in relative flex justify-center">
+                    <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full md:max-h-[80vh] md:w-auto rounded-2xl shadow-2xl relative z-0 object-contain">
                 </div>
                 
-                <!-- Text Container -->
-                <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-8" style="transition-delay: 200ms;">
-                    <!-- Name Card - Mobile Optimized -->
-                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-8 md:p-0 rounded-2xl md:rounded-none shadow-xl md:shadow-none border border-gray-50 md:border-none -mt-12 md:mt-0">
+                <!-- 文字容器 -->
+                <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-8 md:space-y-10" style="transition-delay: 200ms;">
+                    
+                    <!-- 姓名卡片 -->
+                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-8 md:p-0 rounded-2xl md:rounded-none shadow-xl md:shadow-none border border-gray-100 md:border-none -mt-16 md:mt-0 relative">
                         <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
                         <h1 class="text-4xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-2xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
-                        <div class="space-y-1 text-clinic-dark tracking-widest mb-2 border-l-2 border-clinic-gold pl-4 text-sm md:text-base">
+                        <div class="space-y-2 md:space-y-1 text-clinic-dark tracking-widest mb-2 border-l-2 border-clinic-gold pl-4 text-sm md:text-base">
                             <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
                             <p>台灣牙周病醫學會專科醫師</p>
                             <p>TAOI台灣植牙醫學會專科醫師</p>
@@ -211,10 +214,10 @@
                         </div>
                     </div>
                     
-                    <!-- Core Value Section -->
+                    <!-- 核心價值區塊 -->
                     <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-50">
                         <h3 class="text-2xl text-clinic-gold mb-6 font-serif">核心價值</h3>
-                        <p class="text-clinic-dark leading-loose tracking-wider">
+                        <p class="text-clinic-dark leading-loose tracking-wider text-sm md:text-base">
                             在我的診間，醫療是<strong>專業</strong>與<strong>溫度</strong>的結合。<br>
                             我希望在治療品質完美不打折的前提下，將<strong>「盡可能不痛」</strong>視為全口重建與牙周治療中不可或缺的一環。<br>
                             利用<strong>AI模擬</strong>與<strong>顯微治療技術</strong>，我能在術前盡可能預測治療結果，且在確保高度精確的同時，大幅減低治療的辛苦。<br>
@@ -764,7 +767,7 @@
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const content = document.getElementById('modal-content');
-            content.innerHTML = '<div class="text-center py-20"><div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-clinic-gold border-t-transparent"></div></div>';
+            content.innerHTML = '<div class="text-center py-20"><div class=\"inline-block animate-spin rounded-full h-8 w-8 border-4 border-clinic-gold border-t-transparent\"></div></div>';
             let html = `<div class="mb-10 text-center">`;
             if(type === 'periodontal') {
                 html += `
@@ -832,6 +835,9 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.classList.remove('modal-open');
+                if(window.location.hash.includes('post-op')) {
+                    history.replaceState(null, null, ' ');
+                }
             }, 300);
         }
     </script>
