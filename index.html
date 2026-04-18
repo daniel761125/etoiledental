@@ -40,6 +40,7 @@
             color: #3A3A3A;
             user-select: none;
             -webkit-user-select: none;
+            overflow-x: hidden;
         }
         h1, h2, h3, h4 { font-family: 'serif', serif; }
 
@@ -151,11 +152,6 @@
         .nav-btn:active {
             transform: scale(0.95) translateY(-50%);
         }
-
-        /* 手機版姓名區塊動態效果 */
-        #mobile-name-card {
-            transition: transform 0.1s ease-out;
-        }
     </style>
 </head>
 <body class="bg-clinic-light" oncontextmenu="return false;">
@@ -194,20 +190,20 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="pt-24 md:pt-32 pb-20 container mx-auto max-w-7xl px-6">
-            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+        <section id="hero" class="pt-24 md:pt-32 pb-16 container mx-auto max-w-7xl px-6">
+            <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
                 <!-- Image Container -->
                 <div class="w-full md:w-1/2 fade-in relative">
                     <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full rounded-2xl shadow-2xl relative z-0">
                 </div>
                 
-                <!-- Text Container - Mobile Overlap Style -->
-                <div id="hero-text-block" class="w-full md:w-1/2 fade-in -mt-16 md:mt-0 z-10 px-4 md:px-0" style="transition-delay: 200ms;">
-                    <!-- Name Card -->
-                    <div id="mobile-name-card" class="bg-white/90 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-6 md:p-0 rounded-2xl md:rounded-none shadow-xl md:shadow-none border border-white/20 md:border-none">
+                <!-- Text Container -->
+                <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-8" style="transition-delay: 200ms;">
+                    <!-- Name Card - Mobile Optimized -->
+                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-8 md:p-0 rounded-2xl md:rounded-none shadow-xl md:shadow-none border border-gray-50 md:border-none -mt-12 md:mt-0">
                         <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
                         <h1 class="text-4xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-2xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
-                        <div class="space-y-1 text-clinic-dark tracking-widest mb-2 md:mb-8 border-l-2 border-clinic-gold pl-4 text-sm md:text-base">
+                        <div class="space-y-1 text-clinic-dark tracking-widest mb-2 border-l-2 border-clinic-gold pl-4 text-sm md:text-base">
                             <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
                             <p>台灣牙周病醫學會專科醫師</p>
                             <p>TAOI台灣植牙醫學會專科醫師</p>
@@ -216,7 +212,7 @@
                     </div>
                     
                     <!-- Core Value Section -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-50 mt-6 md:mt-0">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-50">
                         <h3 class="text-2xl text-clinic-gold mb-6 font-serif">核心價值</h3>
                         <p class="text-clinic-dark leading-loose tracking-wider">
                             在我的診間，醫療是<strong>專業</strong>與<strong>溫度</strong>的結合。<br>
@@ -388,7 +384,7 @@
                             <p class="text-clinic-dark leading-relaxed tracking-wider">
                                 面對全口牙況不佳，拔光牙齒換取一日植牙（All-on-4）往往是坊間最快的選項，但代價卻是永久失去原生牙。我深信<strong>「保留」比「取代」更有價值</strong>，即便被判定條件不佳，條件適合下我仍會盡力運用專業技術來保留多一點牙齒。
                                 <br><br>
-                                閉幕會提供詳盡的方案對照，讓您了解不同決策的長遠影響。對我而言，用專業守護您的原生笑容，是比植牙更重要的使命。
+                                會診時會提供詳盡的方案對照，讓您了解不同決策的長遠影響。對我而言，用專業守護您的原生笑容，是比植牙更重要的使命。
                             </p>
                             
                             <div class="mt-8">
@@ -596,7 +592,6 @@
             </button>
             <img id="overlay-img" src="" class="max-w-full max-h-[85vh] md:max-h-[90vh] rounded-lg shadow-2xl block relative z-[160]" oncontextmenu="return false;">
         </div>
-        <p class="absolute bottom-6 text-white/50 tracking-widest pointer-events-none text-sm hidden md:block">點擊按鈕、圖片外區域或使用方向鍵切換</p>
     </div>
 
     <script>
@@ -665,20 +660,6 @@
                     if (e.key === 'Escape') closeModal();
                 } else {
                     if (e.key === 'Escape') closeModal();
-                }
-            });
-
-            // --- Mobile Scroll Parallax (Separate Effect) ---
-            const mobileCard = document.getElementById('mobile-name-card');
-            window.addEventListener('scroll', () => {
-                // Only trigger on mobile/small tablets
-                if (window.innerWidth < 768) {
-                    const scrollPos = window.scrollY;
-                    // Move the card down slightly as we scroll to "separate" it from the original overlap
-                    const offset = Math.min(scrollPos * 0.2, 80); 
-                    mobileCard.style.transform = `translateY(${offset}px)`;
-                } else {
-                    mobileCard.style.transform = 'none';
                 }
             });
 
@@ -851,9 +832,6 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.classList.remove('modal-open');
-                if(window.location.hash.includes('post-op')) {
-                    history.replaceState(null, null, ' ');
-                }
             }, 300);
         }
     </script>
