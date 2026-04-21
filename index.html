@@ -198,7 +198,6 @@
                 </div>
                 
                 <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-6 md:space-y-10 px-4 md:px-0" style="transition-delay: 200ms;">
-                    
                     <div id="mobile-name-card" class="bg-white md:bg-transparent p-7 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-gray-100 md:border-none -mt-24 md:mt-0 relative z-20">
                         <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
                         <h1 class="text-3xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
@@ -471,19 +470,19 @@
                         <p class="text-clinic-gray mb-8">術後的照護是治療成功的關鍵，請選擇您的治療項目：</p>
                         
                         <div class="flex flex-col space-y-4 max-w-sm mx-auto text-left">
-                            <button id="post-op-btn-1" onclick="openEduItem(0)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-1" onclick="openEduItem(0)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">01.</span> 微創牙周再生治療術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-btn-2" onclick="openEduItem(1)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-2" onclick="openEduItem(1)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">02.</span> 植牙手術術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-btn-3" onclick="openEduItem(2)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-3" onclick="openEduItem(2)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">03.</span> 拔牙後注意事項 &rarr;
                             </button>
-                            <button id="post-op-btn-4" onclick="openEduItem(3)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-4" onclick="openEduItem(3)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">04.</span> 牙齦移植手術術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-btn-5" onclick="openEduItem(4)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-5" onclick="openEduItem(4)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">05.</span> 鼻竇增高術術後注意事項 &rarr;
                             </button>
                         </div>
@@ -650,6 +649,25 @@
             menuBtn.onclick = () => menu.classList.toggle('hidden');
             menu.onclick = () => menu.classList.add('hidden');
 
+            // --- 修復：處理網址錨點自動觸發術後衛教彈窗 ---
+            const handleHashTrigger = () => {
+                const hash = window.location.hash;
+                if (hash.startsWith('#post-op-')) {
+                    // 取得網址後方的數字 (例如 #post-op-1 取得 1)
+                    const num = parseInt(hash.replace('#post-op-', ''));
+                    const idx = num - 1; // 陣列索引從 0 開始
+                    if (idx >= 0 && idx < siteData.edu.length) {
+                        // 稍微延遲以確保資源載入
+                        setTimeout(() => openEduItem(idx), 300);
+                    }
+                }
+            };
+            
+            // 頁面載入時檢查一次
+            handleHashTrigger();
+            // 監聽網址 hash 變化 (使用者手動點擊連結或更改網址)
+            window.addEventListener('hashchange', handleHashTrigger);
+
             document.addEventListener('keydown', (e) => {
                 const overlay = document.getElementById('image-overlay');
                 if (!overlay.classList.contains('hidden')) {
@@ -675,19 +693,6 @@
                     }, 500);
                 }, 4000); 
             }
-
-            // ---修正：監測 URL Hash 載入衛教連結 ---
-            const handleHash = () => {
-                const hash = window.location.hash;
-                if (hash.startsWith('#post-op-')) {
-                    const index = parseInt(hash.replace('#post-op-', '')) - 1;
-                    if (index >= 0 && index < siteData.edu.length) {
-                        openEduItem(index);
-                    }
-                }
-            };
-            handleHash();
-            window.addEventListener('hashchange', handleHash);
         });
 
         function handleSlider(slider) {
@@ -702,15 +707,11 @@
             handle.style.left = `${value}%`;
         }
 
-        // ---修正：開啟衛教時同步更新 Hash 讓網址生效 ---
         function openEduItem(index) {
             const item = siteData.edu[index];
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const content = document.getElementById('modal-content');
-
-            // 更新網址 Hash (避免使用者點擊時網址沒變)
-            window.location.hash = `#post-op-${index + 1}`;
 
             content.innerHTML = `
                 <div class="text-center pt-6">
@@ -847,9 +848,8 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.classList.remove('modal-open');
-                // 關閉時清空 Hash，避免再次點選同一項目失效
                 if(window.location.hash.includes('post-op')) {
-                    history.replaceState(null, null, window.location.pathname + window.location.search);
+                    history.replaceState(null, null, ' ');
                 }
             }, 300);
         }
