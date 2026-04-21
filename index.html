@@ -190,22 +190,17 @@
 
     <main>
         <!-- Hero Section -->
-        <!-- 優化：調整手機版 pb 間距，確保整體在首屏顯示更完整 -->
-        <section id="hero" class="pt-24 md:pt-32 pb-8 md:pb-12 container mx-auto max-w-7xl px-0 md:px-6 min-h-screen flex flex-col justify-center">
+        <section id="hero" class="pt-24 md:pt-32 pb-16 md:pb-12 container mx-auto max-w-7xl px-0 md:px-6 min-h-screen flex flex-col justify-center">
             <div class="flex flex-col md:flex-row items-center gap-0 md:gap-12">
                 
-                <!-- 照片容器 - 保持原始比例與位置 -->
                 <div class="w-full md:w-1/2 fade-in relative flex justify-center">
                     <img src="https://i.meee.com.tw/A8rgUgK.jpg" alt="李佶翰醫師" class="w-full h-auto md:max-h-[85vh] md:w-auto md:rounded-2xl shadow-xl relative z-0 object-contain">
                 </div>
                 
-                <!-- 文字容器 -->
                 <div id="hero-text-block" class="w-full md:w-1/2 fade-in z-10 space-y-6 md:space-y-10 px-4 md:px-0" style="transition-delay: 200ms;">
                     
-                    <!-- 姓名與資歷卡片 (修正重點) -->
-                    <!-- 手機版：增加負邊距 -mt-40 使其更往上重疊，確保底部的資歷文字不會被切掉 -->
-                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-6 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-gray-100 md:border-none -mt-40 md:mt-0 relative z-20">
-                        <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-xs md:text-base">LEE JIHAN</p>
+                    <div id="mobile-name-card" class="bg-white md:bg-transparent p-7 md:p-0 rounded-2xl md:rounded-none shadow-2xl md:shadow-none border border-gray-100 md:border-none -mt-24 md:mt-0 relative z-20">
+                        <p class="text-clinic-gold tracking-[0.3em] font-medium mb-1 text-sm md:text-base">LEE JIHAN</p>
                         <h1 class="text-3xl md:text-5xl font-bold mb-4">李佶翰 <span class="text-xl md:text-3xl font-normal text-clinic-gray ml-2 font-serif">醫師</span></h1>
                         <div class="space-y-2 md:space-y-1 text-clinic-dark tracking-widest mb-2 border-l-2 border-clinic-gold pl-4 text-sm md:text-base leading-relaxed">
                             <p class="font-bold text-clinic-gold">前台大醫院牙科部主治醫師</p>
@@ -215,7 +210,6 @@
                         </div>
                     </div>
                     
-                    <!-- 核心價值區塊 -->
                     <div class="bg-white p-7 md:p-8 rounded-xl shadow-lg border border-gray-50">
                         <h3 class="text-xl md:text-2xl text-clinic-gold mb-4 md:mb-6 font-serif">核心價值</h3>
                         <p class="text-clinic-dark leading-loose tracking-wider text-sm md:text-base">
@@ -229,7 +223,6 @@
             </div>
         </section>
 
-        <!-- (以下區塊保持不變) -->
         <!-- About / Education -->
         <section id="about" class="py-24 bg-white">
             <div class="container mx-auto max-w-7xl px-6">
@@ -478,19 +471,19 @@
                         <p class="text-clinic-gray mb-8">術後的照護是治療成功的關鍵，請選擇您的治療項目：</p>
                         
                         <div class="flex flex-col space-y-4 max-w-sm mx-auto text-left">
-                            <button id="post-op-1" onclick="openEduItem(0)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-btn-1" onclick="openEduItem(0)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">01.</span> 微創牙周再生治療術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-2" onclick="openEduItem(1)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-btn-2" onclick="openEduItem(1)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">02.</span> 植牙手術術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-3" onclick="openEduItem(2)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-btn-3" onclick="openEduItem(2)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">03.</span> 拔牙後注意事項 &rarr;
                             </button>
-                            <button id="post-op-4" onclick="openEduItem(3)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-btn-4" onclick="openEduItem(3)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">04.</span> 牙齦移植手術術後注意事項 &rarr;
                             </button>
-                            <button id="post-op-5" onclick="openEduItem(4)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
+                            <button id="post-op-btn-5" onclick="openEduItem(4)" class="edu-btn text-lg font-medium text-clinic-dark flex items-center py-2">
                                 <span class="mr-3">05.</span> 鼻竇增高術術後注意事項 &rarr;
                             </button>
                         </div>
@@ -682,6 +675,19 @@
                     }, 500);
                 }, 4000); 
             }
+
+            // ---修正：監測 URL Hash 載入衛教連結 ---
+            const handleHash = () => {
+                const hash = window.location.hash;
+                if (hash.startsWith('#post-op-')) {
+                    const index = parseInt(hash.replace('#post-op-', '')) - 1;
+                    if (index >= 0 && index < siteData.edu.length) {
+                        openEduItem(index);
+                    }
+                }
+            };
+            handleHash();
+            window.addEventListener('hashchange', handleHash);
         });
 
         function handleSlider(slider) {
@@ -696,11 +702,15 @@
             handle.style.left = `${value}%`;
         }
 
+        // ---修正：開啟衛教時同步更新 Hash 讓網址生效 ---
         function openEduItem(index) {
             const item = siteData.edu[index];
             const modal = document.getElementById('dynamic-modal');
             const box = document.getElementById('modal-box');
             const content = document.getElementById('modal-content');
+
+            // 更新網址 Hash (避免使用者點擊時網址沒變)
+            window.location.hash = `#post-op-${index + 1}`;
 
             content.innerHTML = `
                 <div class="text-center pt-6">
@@ -837,8 +847,9 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.body.classList.remove('modal-open');
+                // 關閉時清空 Hash，避免再次點選同一項目失效
                 if(window.location.hash.includes('post-op')) {
-                    history.replaceState(null, null, ' ');
+                    history.replaceState(null, null, window.location.pathname + window.location.search);
                 }
             }, 300);
         }
